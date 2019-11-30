@@ -71,8 +71,11 @@ const ctaImgSrc = siteContent.cta['img-src'];
 ctaImg.setAttribute("src", ctaImgSrc);
 
 // Main content section
-// Selectors
+
+// main-content object
 const mainContent = siteContent['main-content'];
+
+// Top content: Selectors
 const toph4 = document.querySelectorAll('.top-content .text-content h4');
 const topTxt = document.querySelectorAll('.top-content .text-content p');
 const featuresh4 = toph4[0];
@@ -80,15 +83,37 @@ const featuresTxt = topTxt[0];
 const abouth4 = toph4[1];
 const aboutTxt = topTxt[1];
 
-// Set the features section h4 and p content
+// Top content: Set the features section h4 and p content
 featuresh4.textContent = mainContent['features-h4'];
 featuresTxt.textContent = mainContent['features-content'];
 
-// Set the about section h4 and p content
+// Top content: Set the about section h4 and p content
 abouth4.textContent = mainContent['about-h4'];
 aboutTxt.textContent = mainContent['about-content'];
 
-// Set the src of the middle img
+// Middle content: Set the src of the middle img
 const midImg = document.querySelector('.main-content img');
 const midImgSrc = mainContent['middle-img-src'];
 midImg.setAttribute("src", midImgSrc);
+
+// Bottom content: Selectors
+const bottomh4 = document.querySelectorAll('.bottom-content .text-content h4');
+const bottomTxt = document.querySelectorAll('.bottom-content .text-content p');
+const servicesh4 = bottomh4[0];
+const servicesTxt = bottomTxt[0];
+const producth4 = bottomh4[1];
+const productTxt = bottomTxt[1];
+const visionh4 = bottomh4[2];
+const visionTxt = bottomTxt[2];
+
+// Bottom content: Set the services section h4 and p content
+servicesh4.textContent = mainContent['services-h4'];
+servicesTxt.textContent = mainContent['services-content'];
+
+// Bottom content: Set product section h4 and p content
+producth4.textContent = mainContent['product-h4'];
+productTxt.textContent = mainContent['product-content'];
+
+// Bottom content: Set the vision section h4 and p content
+visionh4.textContent = mainContent['vision-h4'];
+visionTxt.textContent = mainContent['vision-content'];
