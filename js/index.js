@@ -50,6 +50,11 @@ navItems[3].textContent = siteContent.nav['nav-item-4'];
 navItems[4].textContent = siteContent.nav['nav-item-5'];
 navItems[5].textContent = siteContent.nav['nav-item-6'];
 
+// Style nav text green
+for (const navItem of navItems) {
+  navItem.style.color = 'green';
+}
+
 // Set header logo img src
 const headerLogo = document.querySelector('header img');
 const headerLogoSrc = siteContent.nav['img-src'];
