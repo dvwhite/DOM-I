@@ -135,3 +135,11 @@ contactEmail.textContent = siteContent.contact['email'];
 
 // Contact: Break address on two lines without changing the content
 contactAddress.style.width = '9rem';
+
+// Footer
+
+// Footer: Selectors
+const copyright  = document.querySelector('footer p');
+
+// Footer: Copyright
+copyright.textContent = siteContent.footer['copyright'];
