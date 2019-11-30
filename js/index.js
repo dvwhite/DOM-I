@@ -117,3 +117,21 @@ productTxt.textContent = mainContent['product-content'];
 // Bottom content: Set the vision section h4 and p content
 visionh4.textContent = mainContent['vision-h4'];
 visionTxt.textContent = mainContent['vision-content'];
+
+// Contact section
+
+// Contact: Selectors
+const contacth4 = document.querySelector('.contact h4');
+const contactp = document.querySelectorAll('.contact p');
+const contactAddress = contactp[0];
+const contactPhone = contactp[1];
+const contactEmail = contactp[2];
+
+// Contact: Set .textContent values
+contacth4.textContent = siteContent.contact['contact-h4'];
+contactAddress.textContent = siteContent.contact['address'];
+contactPhone.textContent = siteContent.contact['phone'];
+contactEmail.textContent = siteContent.contact['email'];
+
+// Contact: Break address on two lines without changing the content
+contactAddress.style.width = '9rem';
