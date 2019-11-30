@@ -53,6 +53,11 @@ navItems[5].textContent = siteContent.nav['nav-item-6'];
 // Set header logo img src
 const headerLogo = document.querySelector('header img');
 const headerLogoSrc = siteContent.nav['img-src'];
-headerLogo.setAttribute(headerLogoSrc, "img/logo.png");
+headerLogo.setAttribute("src", headerLogoSrc);
 
-// 
+// Set the call to action section content, img
+const ctah1 = document.querySelector('.cta-text h1');
+ctah1.textContent = siteContent.cta['h1'];
+// "h1": "DOM Is Awesome",
+// "button": "Get Started",
+// "img-src": "img/header-img.png"
