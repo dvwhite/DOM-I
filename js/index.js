@@ -68,3 +68,21 @@ ctabtn.textContent = siteContent.cta['button'];
 const ctaImg = document.querySelector('.cta img');
 const ctaImgSrc = siteContent.cta['img-src'];
 ctaImg.setAttribute("src", ctaImgSrc);
+
+// Main content section
+// Selectors
+const mainContent = siteContent['main-content'];
+const toph4 = document.querySelectorAll('.top-content .text-content h4');
+const topTxt = document.querySelectorAll('.top-content .text-content p');
+const featuresh4 = toph4[0];
+const featuresTxt = topTxt[0];
+const abouth4 = toph4[1];
+const aboutTxt = topTxt[1];
+
+// Set the features section h4 and p content
+featuresh4.textContent = mainContent['features-h4'];
+featuresTxt.textContent = mainContent['features-content'];
+
+// Set the about section h4 and p content
+abouth4.textContent = mainContent['about-h4'];
+aboutTxt.textContent = mainContent['about-content'];
