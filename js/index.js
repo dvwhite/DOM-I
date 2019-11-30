@@ -42,7 +42,7 @@ let logo = document.getElementById("logo-img");
 logo.setAttribute('src', siteContent["nav"]["img-src"])
 
 // Set nav item link text
-const navItems = document.querySelectorAll('nav a');
+let navItems = document.querySelectorAll('nav a');
 navItems[0].textContent = siteContent.nav['nav-item-1'];
 navItems[1].textContent = siteContent.nav['nav-item-2'];
 navItems[2].textContent = siteContent.nav['nav-item-3'];
@@ -50,7 +50,19 @@ navItems[3].textContent = siteContent.nav['nav-item-4'];
 navItems[4].textContent = siteContent.nav['nav-item-5'];
 navItems[5].textContent = siteContent.nav['nav-item-6'];
 
-// Style nav text green
+// Add two navigation items as per Task 3b
+const nav = document.querySelector('header nav');
+const appendedChild = document.createElement('a');
+const appendedChildText = 'Innovation';
+const prependedChild = document.createElement('a');
+const prependedChildText = 'Research';
+nav.prepend(prependedChild);
+nav.appendChild(appendedChild);
+prependedChild.textContent = prependedChildText;
+appendedChild.textContent = appendedChildText;
+
+// Style nav text green as per Task 3a
+navItems = document.querySelectorAll('nav a');
 for (const navItem of navItems) {
   navItem.style.color = 'green';
 }
