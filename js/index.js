@@ -59,6 +59,7 @@ headerLogo.setAttribute("src", headerLogoSrc);
 // h1 text
 const ctah1 = document.querySelector('.cta-text h1');
 ctah1.textContent = siteContent.cta['h1'];
+ctah1.style.wordSpacing = '100vh'; // one word per line
 
 // button
 const ctabtn = document.querySelector('.cta-text button');
@@ -86,3 +87,8 @@ featuresTxt.textContent = mainContent['features-content'];
 // Set the about section h4 and p content
 abouth4.textContent = mainContent['about-h4'];
 aboutTxt.textContent = mainContent['about-content'];
+
+// Set the src of the middle img
+const midImg = document.querySelector('.main-content img');
+const midImgSrc = mainContent['middle-img-src'];
+midImg.setAttribute("src", midImgSrc);
