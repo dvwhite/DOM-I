@@ -56,7 +56,6 @@ const headerLogoSrc = siteContent.nav['img-src'];
 headerLogo.setAttribute("src", headerLogoSrc);
 
 // Set the call to action section content, img
-
 // h1 text
 const ctah1 = document.querySelector('.cta-text h1');
 ctah1.textContent = siteContent.cta['h1'];
@@ -64,3 +63,8 @@ ctah1.textContent = siteContent.cta['h1'];
 // button
 const ctabtn = document.querySelector('.cta-text button');
 ctabtn.textContent = siteContent.cta['button'];
+
+// Set cta img src
+const ctaImg = document.querySelector('.cta img');
+const ctaImgSrc = siteContent.cta['img-src'];
+ctaImg.setAttribute("src", ctaImgSrc);
