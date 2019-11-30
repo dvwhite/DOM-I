@@ -43,15 +43,16 @@ logo.setAttribute('src', siteContent["nav"]["img-src"])
 
 // Set nav item link text
 const navItems = document.querySelectorAll('nav a');
-navItems[0].textContent = 'Services';
-navItems[1].textContent = 'Product';
-navItems[2].textContent = 'Vision';
-navItems[3].textContent = 'Features';
-navItems[4].textContent = 'About';
-navItems[5].textContent = 'Contact';
+navItems[0].textContent = siteContent.nav['nav-item-1'];
+navItems[1].textContent = siteContent.nav['nav-item-2'];
+navItems[2].textContent = siteContent.nav['nav-item-3'];
+navItems[3].textContent = siteContent.nav['nav-item-4'];
+navItems[4].textContent = siteContent.nav['nav-item-5'];
+navItems[5].textContent = siteContent.nav['nav-item-6'];
 
 // Set header logo img src
 const headerLogo = document.querySelector('header img');
-headerLogo.setAttribute("src", "img/logo.png");
+const headerLogoSrc = siteContent.nav['img-src'];
+headerLogo.setAttribute(headerLogoSrc, "img/logo.png");
 
 // 
