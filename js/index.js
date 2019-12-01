@@ -162,3 +162,16 @@ const copyright  = document.querySelector('footer p');
 
 // Footer: Copyright
 copyright.textContent = siteContent.footer['copyright'];
+
+// STRETCH: A button that adds a random nav item, up to the max allowed
+const maxNavAllowed = 12; // Allows an additional 4 nav items if desired
+const btnText = 'Add Nav Item!';
+
+// Create and style button element
+const btn = document.createElement('button');
+btn.style.backgroundColor = 'lightgrey';
+btn.textContent = btnText;
+
+// Place button in the desired section
+const ctaSection = document.querySelector('nav');
+ctaSection.prepend(btn);
