@@ -51,14 +51,16 @@ navItems[4].textContent = siteContent.nav['nav-item-5'];
 navItems[5].textContent = siteContent.nav['nav-item-6'];
 
 // Add two navigation items as per Task 3b
+// Using .prepend
 const nav = document.querySelector('header nav');
-const appendedChild = document.createElement('a');
-const appendedChildText = 'Innovation';
 const prependedChild = document.createElement('a');
 const prependedChildText = 'Research';
 nav.prepend(prependedChild);
-nav.appendChild(appendedChild);
 prependedChild.textContent = prependedChildText;
+// Using .appendChild
+const appendedChild = document.createElement('a');
+const appendedChildText = 'Innovation';
+nav.appendChild(appendedChild);
 appendedChild.textContent = appendedChildText;
 
 // Style nav text green as per Task 3a
