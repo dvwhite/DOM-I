@@ -1,3 +1,4 @@
+// Add the config.js to the header
 const siteContent = {
   "nav": {
     "nav-item-1": "Services",
@@ -37,12 +38,130 @@ const siteContent = {
   },
 };
 
+
+
+  //////////////////////
+ // Helper Functions //
+//////////////////////
+
+/*
+* Gets all anchor tags in the nav using the DOM
+* @returns {NodeList}: The anchor tags in the nav 
+*/
+function getNavItems() {
+  return document.querySelectorAll('nav a');
+}
+
+/*
+* Returns a DOM reference to the nav
+* @returns {DOM*}: The nav (as rendered)
+*/
+function getNav() {
+  return document.querySelector('header nav');
+}
+
+/*
+* Add a new nav item to nav with .textContent of navText
+* @param {DOM*} nav: The nav (as rendered)
+* @param {string} navText: The textContent of the new nav item
+*/
+// Function to create and append a new nav item
+function appendToNav(nav, navText) {
+  // Append a new anchor tag to the nav, giving it navText
+  const appendedChild = document.createElement('a');
+  const appendedChildText = navText;
+  appendedChild.textContent = appendedChildText;
+  appendedChild.style.color = 'green';
+  nav.appendChild(appendedChild);
+}
+
+/*
+* Randomly adds to the nav using the Words API to generate random words
+* @returns: none
+*/
+function getRandomWordFromAPI() {
+  // Variables
+  const apiURL = 'https://wordsapiv1.p.rapidapi.com/words/?random=true';
+  const apiKey = 'None';
+
+  // Create the request
+  const request = new XMLHttpRequest();
+  request.open('GET', apiURL, true);
+  request.setRequestHeader("x-rapidapi-host", "wordsapiv1.p.rapidapi.com");
+  request.setRequestHeader("x-rapidapi-key", apiKey);
+  request.setRequestHeader("Accept", "application/json");
+
+  // This will be called when the XMLHttpRequest transaction
+  // successfully completes
+  request.onload = function() {
+    // generate JSON of data on loading
+    const wordData = JSON.parse(this.response);
+    let randomText;
+
+    // check request status
+    const statusOK = 200; // OK status
+    const statusFail = 400; // threshold is >= 200 && < 400 to succeed
+    const requestResponse = request.status >= statusOK;
+    const requestNotFailed = request.status < statusFail;
+    const isValidRequest = requestResponse && requestNotFailed; 
+    const maxNavAllowed = 9; // Caps total nav items allowable
+
+    // Test for valid request
+    if (isValidRequest) {
+      randomText = wordData.word.split(" ")[0]; // restrict to a single word
+    } else {
+      const defaultWords = ['Innovate', 'Globalize', 'Initiate', 'Change', 'Disrupt', 'Alter'];
+      randomInt = Math.min(Math.round(Math.random() * 10), defaultWords.length - 1);
+      randomText = defaultWords[randomInt];
+      randomText = capitalizeFirstLetter(randomText);
+    }
+
+    // Set the new nav
+    nav = getNav();
+    if (nav.children.length <= maxNavAllowed) {
+      appendToNav(nav, randomText);
+    } else {
+      nav.lastChild.textContent = randomText;
+    }
+  }
+  request.send();
+}
+
+/*
+* Changes all nav item texts to the desired color
+* @param {NodeList} items: The NodeList to iterate over
+* @param {string} colorStr: The color of each nav
+* @returns: none
+*/
+function styleNavColor(items, colorStr) {
+  for (const item of items) {
+    item.style.color = colorStr;
+  }
+}
+
+/*
+* Capitalizes the first letter of str and returns the modified str
+* @param {string} str: The string to modify
+* @returns {string} str: The modified str
+*/
+function capitalizeFirstLetter(str) {
+  const chars = str.split("");
+  chars[0] = chars[0].toUpperCase();
+  const joinedStr = chars.join("");
+  return joinedStr;
+}
+// End helpers
+
+  //////////////////////
+ // DOM Manipulation //
+//////////////////////
+
 // Example: Update the img src for the logo
 let logo = document.getElementById("logo-img");
 logo.setAttribute('src', siteContent["nav"]["img-src"])
 
 // Set nav item link text
-let navItems = document.querySelectorAll('nav a');
+let navItems = getNavItems();
 navItems[0].textContent = siteContent.nav['nav-item-1'];
 navItems[1].textContent = siteContent.nav['nav-item-2'];
 navItems[2].textContent = siteContent.nav['nav-item-3'];
@@ -52,22 +171,22 @@ navItems[5].textContent = siteContent.nav['nav-item-6'];
 
 // Add two navigation items as per Task 3b
 // Using .prepend
-const nav = document.querySelector('header nav');
+let nav = getNav();
 const prependedChild = document.createElement('a');
-const prependedChildText = 'Research';
+const prependedChildText = 'Ideas';
 nav.prepend(prependedChild);
 prependedChild.textContent = prependedChildText;
 // Using .appendChild
+// There is a helper function for this, but I
+// Use that in stretch to comply with spec in the README
 const appendedChild = document.createElement('a');
-const appendedChildText = 'Innovation';
+const appendedChildText = 'Donate';
 nav.appendChild(appendedChild);
 appendedChild.textContent = appendedChildText;
 
 // Style nav text green as per Task 3a
-navItems = document.querySelectorAll('nav a');
-for (const navItem of navItems) {
-  navItem.style.color = 'green';
-}
+navItems = getNavItems();
+styleNavColor(navItems, 'green');
 
 // Set header logo img src
 const headerLogo = document.querySelector('header img');
@@ -163,8 +282,14 @@ const copyright  = document.querySelector('footer p');
 // Footer: Copyright
 copyright.textContent = siteContent.footer['copyright'];
 
-// STRETCH: A button that adds a random nav item, up to the max allowed
-const maxNavAllowed = 12; // Allows an additional 4 nav items if desired
+// End DOM manipulation
+
+
+  /////////////////////
+ // STRETCH CONTENT //
+/////////////////////
+
+// A button that adds a random nav item, up to the max allowed
 const btnText = 'Add Nav Item!';
 
 // Create and style button element
@@ -175,3 +300,10 @@ btn.textContent = btnText;
 // Place button in the desired section
 const ctaSection = document.querySelector('nav');
 ctaSection.prepend(btn);
+
+// Add the onclick event to the button
+btn.addEventListener("click", getRandomWordFromAPI); 
+
+
+
+// End STRETCH
