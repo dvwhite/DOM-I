@@ -80,9 +80,16 @@ function appendToNav(nav, navText) {
 * @returns: none
 */
 function getRandomWordFromAPI() {
+  // Load apiConfig
+  const headTag = document.getElementsByTagName('head')[0];
+  const headScript = document.querySelector('head script');
+  const newScript = document.createElement('script');
+  newScript.setAttribute('src', 'js/config.js');
+  headTag.insertBefore(newScript, headTag);
+
   // Variables
   const apiURL = 'https://wordsapiv1.p.rapidapi.com/words/?random=true';
-  const apiKey = 'None';
+  const apiKey = apiConfig.API_KEY;
 
   // Create the request
   const request = new XMLHttpRequest();
