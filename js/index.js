@@ -128,6 +128,9 @@ function getRandomWordFromAPI(apiKey) {
     } else {
       nav.lastChild.textContent = randomText;
     }
+
+    // Set a link to that word in Google
+    nav.lastChild.setAttribute('href', 'https://www.google.com/search?q=' + randomText)
   }
   request.send();
 }
