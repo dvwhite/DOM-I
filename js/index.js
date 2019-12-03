@@ -38,10 +38,6 @@ const siteContent = {
   },
 };
 
-const head = document.querySelector('head');
-const indexScript = document.querySelector('head script');
-indexScript.setAttribute('type', 'module');
-
   //////////////////////
  // Helper Functions //
 //////////////////////
@@ -85,13 +81,6 @@ function appendToNav(nav, navText) {
 * @returns: none
 */
 function getRandomWordFromAPI(apiKey) {
-  // // Load api config file to access the API key
-  // const headTag = document.getElementsByTagName('head')[0];
-  // const headScript = document.querySelector('head script');
-  // const newScript = document.createElement('script');
-  // newScript.setAttribute('src', 'js/config.js');
-  // headTag.insertBefore(newScript, headScript);
-
   // Variables
   const apiURL = 'https://wordsapiv1.p.rapidapi.com/words/?random=true';
 
@@ -107,7 +96,7 @@ function getRandomWordFromAPI(apiKey) {
   request.onload = function() {
     // generate JSON of data on loading
     const wordData = JSON.parse(this.response);
-    let randomText;
+    let randomText = "";
 
     // check request status
     const statusOK = 200; // OK status
@@ -116,16 +105,21 @@ function getRandomWordFromAPI(apiKey) {
     const requestNotFailed = request.status < statusFail;
     const isValidRequest = requestResponse && requestNotFailed; 
     const maxNavAllowed = 9; // Caps total nav items allowable
+    const maxWordLength = 15; // Prevent very long words from overflowing nav
 
     // Test for valid request
+    // If valid, generate random text from the API
+    // If invalid, then randomly choose an element defaultWords
     if (isValidRequest) {
       randomText = wordData.word.split(" ")[0]; // restrict to a single word
-    } else {
-      const defaultWords = ['Innovate', 'Globalize', 'Initiate', 'Change', 'Disrupt', 'Alter'];
-      randomInt = Math.min(Math.round(Math.random() * 10), defaultWords.length - 1);
-      randomText = defaultWords[randomInt];
-      randomText = capitalizeFirstLetter(randomText);
     }
+
+    if (randomText.length < 1 || randomText.length > maxWordLength) {
+      const defaultWords = ['innovate', 'globalize', 'initiate', 'change', 'disrupt', 'deploy'];
+      randomInt = Math.round(Math.random() * 10) % defaultWords.length;
+      randomText = defaultWords[randomInt];
+    }
+    randomText = capitalizeFirstLetter(randomText);
 
     // Set the new nav
     nav = getNav();
@@ -169,7 +163,7 @@ function capitalizeFirstLetter(str) {
 
 // Example: Update the img src for the logo
 let logo = document.getElementById("logo-img");
-logo.setAttribute('src', siteContent["nav"]["img-src"])
+logo.setAttribute('src', siteContent["nav"]["img-src"]);
 
 // Set nav item link text
 let navItems = getNavItems();
@@ -188,8 +182,8 @@ const prependedChildText = 'Ideas';
 nav.prepend(prependedChild);
 prependedChild.textContent = prependedChildText;
 // Using .appendChild
-// There is a helper function for this, but I
-// Use that in stretch to comply with spec in the README
+// There is a helper function for this, but I use it in
+// stretch to comply with spec in the README
 const appendedChild = document.createElement('a');
 const appendedChildText = 'Donate';
 nav.appendChild(appendedChild);
@@ -203,6 +197,10 @@ styleNavColor(navItems, 'green');
 const headerLogo = document.querySelector('header img');
 const headerLogoSrc = siteContent.nav['img-src'];
 headerLogo.setAttribute("src", headerLogoSrc);
+logo.style.marginLeft= '20px'; // make room for stretch content in the nav
+
+// Change styles on the nav to accommodate the logo
+nav.style.width = '710px';
 
 // Set the call to action section content, img
 // h1 text
@@ -301,7 +299,7 @@ copyright.textContent = siteContent.footer['copyright'];
 /////////////////////
 
 // A button that adds a random nav item, up to the max allowed
-const btnText = 'Add Nav Item!';
+const btnText = 'Random Nav';
 
 // Create and style button element
 const btn = document.createElement('button');
