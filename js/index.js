@@ -313,7 +313,7 @@ const ctaSection = document.querySelector('nav');
 ctaSection.prepend(btn);
 
 // Add the onclick event to the button
-// API key
+// API key is located in a seperate config file
 let apiKey;
 import('./config.js')
   .then(module => {
@@ -322,7 +322,5 @@ import('./config.js')
       getRandomWordFromAPI.call(this, apiKey);
     }, false);
 })
-
-
 
 // End STRETCH
