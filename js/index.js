@@ -38,7 +38,12 @@ const siteContent = {
   },
 };
 
+const head = document.querySelector('head');
+const indexScript = document.querySelector('head script');
+indexScript.setAttribute('type', 'module');
 
+import * as configModule from './config.js';
+console.log(configModule.apiConfig)
 
   //////////////////////
  // Helper Functions //
@@ -46,24 +51,27 @@ const siteContent = {
 
 /*
 * Gets all anchor tags in the nav using the DOM
-* @returns {NodeList}: The anchor tags in the nav 
+* @returns {NodeList} navItems: The anchor tags in the nav 
 */
 function getNavItems() {
-  return document.querySelectorAll('nav a');
+  const navItems = document.querySelectorAll('nav a');
+  return navItems;
 }
 
 /*
 * Returns a DOM reference to the nav
-* @returns {DOM*}: The nav (as rendered)
+* @returns {object} nav: The nav (as rendered)
 */
 function getNav() {
-  return document.querySelector('header nav');
+  const nav = document.querySelector('header nav');
+  return nav;
 }
 
 /*
 * Add a new nav item to nav with .textContent of navText
-* @param {DOM*} nav: The nav (as rendered)
+* @param {object} nav: The nav (as rendered)
 * @param {string} navText: The textContent of the new nav item
+* @returns: none
 */
 // Function to create and append a new nav item
 function appendToNav(nav, navText) {
@@ -79,17 +87,16 @@ function appendToNav(nav, navText) {
 * Randomly adds to the nav using the Words API to generate random words
 * @returns: none
 */
-function getRandomWordFromAPI() {
-  // Load apiConfig
-  const headTag = document.getElementsByTagName('head')[0];
-  const headScript = document.querySelector('head script');
-  const newScript = document.createElement('script');
-  newScript.setAttribute('src', 'js/config.js');
-  headTag.insertBefore(newScript, headTag);
+function getRandomWordFromAPI(apiKey) {
+  // // Load api config file to access the API key
+  // const headTag = document.getElementsByTagName('head')[0];
+  // const headScript = document.querySelector('head script');
+  // const newScript = document.createElement('script');
+  // newScript.setAttribute('src', 'js/config.js');
+  // headTag.insertBefore(newScript, headScript);
 
   // Variables
   const apiURL = 'https://wordsapiv1.p.rapidapi.com/words/?random=true';
-  const apiKey = apiConfig.API_KEY;
 
   // Create the request
   const request = new XMLHttpRequest();
@@ -309,7 +316,7 @@ const ctaSection = document.querySelector('nav');
 ctaSection.prepend(btn);
 
 // Add the onclick event to the button
-btn.addEventListener("click", getRandomWordFromAPI); 
+btn.addEventListener("click", getRandomWordFromAPI(apiConfig.API_KEY)); 
 
 
 
