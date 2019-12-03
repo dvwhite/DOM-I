@@ -42,9 +42,6 @@ const head = document.querySelector('head');
 const indexScript = document.querySelector('head script');
 indexScript.setAttribute('type', 'module');
 
-import * as configModule from './config.js';
-console.log(configModule.apiConfig)
-
   //////////////////////
  // Helper Functions //
 //////////////////////
@@ -316,7 +313,15 @@ const ctaSection = document.querySelector('nav');
 ctaSection.prepend(btn);
 
 // Add the onclick event to the button
-btn.addEventListener("click", getRandomWordFromAPI(apiConfig.API_KEY)); 
+// API key
+let apiKey;
+import('./config.js')
+  .then(module => {
+    apiKey = module.apiConfig.API_KEY;
+    btn.addEventListener("click", function () {
+      getRandomWordFromAPI.call(this, apiKey);
+    }, false);
+})
 
 
 
