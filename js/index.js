@@ -203,6 +203,10 @@ nav.style.width = '710px';
 
 // Set the call to action section content, img
 // h1 text
+
+const ctatxtDiv = document.querySelector('.cta-text');
+ctatxtDiv.style.width = '50%';
+
 const ctah1 = document.querySelector('.cta-text h1');
 ctah1.textContent = siteContent.cta['h1'];
 ctah1.style.wordSpacing = '100vh'; // one word per line
