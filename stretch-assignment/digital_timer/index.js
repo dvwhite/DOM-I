@@ -1,17 +1,4 @@
-// Data
-const secondTensEl = document.querySelector('#secondTens');
-const secondOnesEl = document.querySelector('#secondOnes');
-const msHundredsEl = document.querySelector('#msHundreds');
-const msTensEl = document.querySelector('#msTens');
-const maxSeconds = 10;
-
-const timeObjects = {
-    secondTens: secondTensEl,
-    secondOnes: secondOnesEl,
-    msHundreds: msHundredsEl,
-    msTens: msTensEl
-}
-
+// Helper functions
 /*
 * Validate the textContent of an element is numeric
 * @param {variant} value: The value to validate
@@ -35,41 +22,51 @@ function calcTime(timeObj) {
 
 /*
 * Increment the number stored as the .textContent
-* of the element with id
-* @param {string} id: The id of the element to increment
+* of the elements in timeObjects
+* @param {object} timeObjects: The object containing the elements to increment
 * @returns: none
 */
-function updateSeconds(selectorObj, updateIntervalInMs, stopUpdatingAtSecond) {
+function updateSeconds() {
+    // Variables
     const msPerSecond = 1000;
-    let seconds = convertToNum(selectorObj.secondTens) * 10 + convertToNum(selectorObj.secondOnes);
-    let ms = convertToNum(selectorObj.msHundreds) * 100 + convertToNum(selectorObj.msTens) * 10;
+    const updateIntervalInMs = 10; // defined in the spec
+    const maxSeconds = 10; // defined in the spec
+    const maxMs = maxSeconds * msPerSecond;
+    let secondTensEl = document.querySelector('#secondTens');
+    let secondOnesEl = document.querySelector('#secondOnes');
+    let msHundredsEl = document.querySelector('#msHundreds');
+    let msTensEl = document.querySelector('#msTens');
+    let numberEls = [secondTensEl, secondOnesEl, msHundredsEl, msTensEl];
+    
+    // Increment the number
+    numMs += updateIntervalInMs;
+    let seconds = Math.floor(numMs / msPerSecond);
 
-    ms += updateIntervalInMs; // in ms
-    if (ms >= msPerSecond) {
-        ms %= msPerSecond;
-        seconds += 1;
+    // Stop if it exceeds the max number of allowable seconds
+    if (numMs >= maxMs) {
+        numberEls.forEach(numElement => numElement.style.color = 'red');
+        stopInterval(timerIncrement);
     }
 
-    if (seconds >= stopUpdatingAtSecond) {  
-        ms = 0;
-    }
+    // Calculate place values
+    const secondTens = Math.floor(seconds/10 % 10);
+    const secondOnes = Math.floor(seconds % 10);
+    const msHundreds = Math.floor(numMs/100 % 10);
+    const msTens = Math.floor(numMs/10 % 10);
 
-    const secondTens = seconds % 10;
-    const secondOnes = seconds - secondTens;
-    const msHundreds = ms % 100;
-    const msTens = ms - msHundreds;
+    console.log(secondTens, secondOnes, msHundreds, msTens)
 
-    selectorObj.secondTens.textContent = secondTens;
-    selectorObj.secondOnes.textContent = secondOnes;
-    selectorObj.msHundreds.textContent = msHundreds;
-    selectorObj.msTens.textContent = msTens;
+    // Update page elements
+    secondTensEl.textContent = secondTens;
+    secondOnesEl.textContent = secondOnes;
+    msHundredsEl.textContent = msHundreds;
+    msTensEl.textContent = msTens;
+}
 
-    console.log(seconds)
+function stopInterval(interval) {
+    clearInterval(interval);
 }
 
 // Update the time every 10 ms
-let timerTotal = 0;
-while (timerTotal < maxSeconds) {
-    window.setInterval(updateSeconds(timeObjects), 10); // update every ten ms
-    timerTotal = calcTime(timeObjects)
-}
+let timerIncrement = window.setInterval(updateSeconds, 10); // update every ten ms
+let numMs = 0;
