@@ -36,7 +36,8 @@ function updateSeconds() {
     let secondOnesEl = document.querySelector('#secondOnes');
     let msHundredsEl = document.querySelector('#msHundreds');
     let msTensEl = document.querySelector('#msTens');
-    let numberEls = [secondTensEl, secondOnesEl, msHundredsEl, msTensEl];
+    let colon = document.querySelector('#colon');
+    let numberEls = [secondTensEl, secondOnesEl, colon, msHundredsEl, msTensEl];
     
     // Increment the number
     numMs += updateIntervalInMs;
@@ -53,8 +54,6 @@ function updateSeconds() {
     const secondOnes = Math.floor(seconds % 10);
     const msHundreds = Math.floor(numMs/100 % 10);
     const msTens = Math.floor(numMs/10 % 10);
-
-    console.log(secondTens, secondOnes, msHundreds, msTens)
 
     // Update page elements
     secondTensEl.textContent = secondTens;
