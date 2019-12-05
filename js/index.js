@@ -170,12 +170,8 @@ logo.setAttribute('src', siteContent["nav"]["img-src"]);
 
 // Set nav item link text
 let navItems = getNavItems();
-navItems[0].textContent = siteContent.nav['nav-item-1'];
-navItems[1].textContent = siteContent.nav['nav-item-2'];
-navItems[2].textContent = siteContent.nav['nav-item-3'];
-navItems[3].textContent = siteContent.nav['nav-item-4'];
-navItems[4].textContent = siteContent.nav['nav-item-5'];
-navItems[5].textContent = siteContent.nav['nav-item-6'];
+const values = Object.values(siteContent['nav']);
+navItems.forEach((item, index) => item.textContent = values[index])
 
 // Add two navigation items as per Task 3b
 // Using .prepend
