@@ -1,26 +1,5 @@
 // Helper functions
 /*
-* Validate the textContent of an element is numeric
-* @param {variant} value: The value to validate
-* @returns {number} validatedValue: The converted number
-*/
-function convertToNum(value) {
-    validatedValue = isNaN(value) ? 0 : value;
-    return validatedValue;
-}
-
-/*
-* Calculate the time in seconds stored in the time elements
-* @param {object} timeObj: The object of time elements
-* @returns {float} seconds: The total seconds in the time elements
-*/
-function calcTime(timeObj) {
-    let seconds = convertToNum(timeObj.secondTens) * 10 + convertToNum(timeObj.secondOnes);
-    let ms = convertToNum(timeObj.msHundreds) * 100 + convertToNum(timeObj.msTens) * 10;
-    return seconds + ms;
-}
-
-/*
 * Increment the number stored as the .textContent
 * of the elements in timeObjects
 * @param {object} timeObjects: The object containing the elements to increment
@@ -46,7 +25,7 @@ function updateSeconds() {
     // Stop if it exceeds the max number of allowable seconds
     if (numMs >= maxMs) {
         numberEls.forEach(numElement => numElement.style.color = 'red');
-        stopInterval(timerIncrement);
+        stopInterval(intervalID);
     }
 
     // Calculate place values
@@ -62,10 +41,50 @@ function updateSeconds() {
     msTensEl.textContent = msTens;
 }
 
+/*
+* Start setInterval on object interval
+* @param {object} value: The interval to start setInterval on
+* @returns: none
+*/
+function startInterval(callback, intervalInMs) {
+    intervalID = window.setInterval(callback, 10)// update every ten ms
+}
+
+/*
+* Stop setInterval on object interval
+* @param {object} value: The interval to stop setInterval on
+* @returns: none
+*/
 function stopInterval(interval) {
     clearInterval(interval);
 }
 
 // Update the time every 10 ms
-let timerIncrement = window.setInterval(updateSeconds, 10); // update every ten ms
+let intervalID;
 let numMs = 0;
+
+// Add a new div for the button
+// Format the body
+const bodyTag = document.querySelector('body');
+bodyTag.style.display = 'flex';
+bodyTag.style.flexDirection = 'column';
+
+// Add the div for the button
+const divTag = document.createElement('div');
+divTag.id = 'btn-container';
+bodyTag.appendChild(divTag);
+
+// A button that adds a random nav item, up to the max allowed
+const startBtnText = 'Start';
+
+// Create and style button element
+const startBtn = document.createElement('button');
+startBtn.style.backgroundColor = 'lightgrey';
+startBtn.textContent = startBtnText;
+startBtn.addEventListener('click', function() {
+    startInterval(updateSeconds, 10);
+})
+
+// Place button in the div
+const div = document.querySelector('#btn-container');
+div.append(startBtn);
