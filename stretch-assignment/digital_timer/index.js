@@ -17,15 +17,17 @@ function updateSeconds() {
     let msTensEl = document.querySelector('#msTens');
     let colon = document.querySelector('#colon');
     let numberEls = [secondTensEl, secondOnesEl, colon, msHundredsEl, msTensEl];
-    
-    // Increment the number
-    numMs += updateIntervalInMs;
-    let seconds = Math.floor(numMs / msPerSecond);
+    let seconds;
 
     // Stop if it exceeds the max number of allowable seconds
     if (numMs >= maxMs) {
         numberEls.forEach(numElement => numElement.style.color = 'red');
         stopInterval(intervalID);
+        return 0;
+    } else {
+        // Increment the number
+        numMs += updateIntervalInMs;
+        seconds = Math.floor(numMs / msPerSecond);
     }
 
     // Calculate place values
@@ -57,6 +59,7 @@ function startInterval(callback, intervalInMs) {
 */
 function stopInterval(interval) {
     clearInterval(interval);
+    startBtn.disabled = false;
 }
 
 // Update the time every 10 ms
@@ -77,14 +80,15 @@ bodyTag.appendChild(divTag);
 // A button that adds a random nav item, up to the max allowed
 const startBtnText = 'Start';
 
-// Create and style button element
+// Create and style button elements
 const startBtn = document.createElement('button');
 startBtn.style.backgroundColor = 'lightgrey';
 startBtn.textContent = startBtnText;
 startBtn.addEventListener('click', function() {
     startInterval(updateSeconds, 10);
+    startBtn.disabled = true;
 })
 
-// Place button in the div
+// Place buttons in the div
 const div = document.querySelector('#btn-container');
 div.append(startBtn);
