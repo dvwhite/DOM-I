@@ -30,6 +30,7 @@ function updateSeconds() {
         return 0;
     } else {
         // Increment the number
+        numberEls.forEach(numElement => numElement.style.color = '#221E1D');
         numMs += updateIntervalInMs;
         seconds = Math.floor(numMs / msPerSecond);
     }
@@ -92,13 +93,11 @@ function resetNumberElements() {
         if (!isNaN(div.textContent)) {
             div.textContent = '0';
         }
-        div.style.color = "black";
-    });
+        div.style.color = '#221E1D';
+    }); 
     numMs = 0;
 
     // Reset the bg and border of the parent div
-    const defaultBgColor = 'whitesmoke';
-    const defaultBorder = '3px solid lightgrey';
     resetDivColor(elements[0].parentNode, defaultBgColor, defaultBorder);
 }
 
@@ -148,10 +147,11 @@ div.append(resetBtn);
 
 // Style the digits div
 const digitsDiv = document.querySelector('.digits');
-const defaultBgColor = 'whitesmoke';
-const defaultBorder = '3px solid lightgrey';
+const defaultBgColor = '#ECEAE0';
+const defaultBorder = '3px solid #E9633B';
 resetDivColor(digitsDiv, defaultBgColor, defaultBorder);
 digitsDiv.style.marginBottom = '0.5rem';
 // digitsDiv.style.boxShadow = '5px 5px 8px #888888';
 digitsDiv.style.boxShadow = '0 10.5px 21px rgba(0,0,0,0.25), 0 5.5px 5.5px rgba(0,0,0,0.22)';
 digitsDiv.style.borderRadius = '1rem';
+digitsDiv.children
