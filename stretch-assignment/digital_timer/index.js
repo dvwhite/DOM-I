@@ -62,6 +62,33 @@ function stopInterval(interval) {
     startBtn.disabled = false;
 }
 
+/*
+* Create a button with buttonText as the textElement
+* @param {string} buttonText: The text to apply to the button.textElement attribute
+* @returns {object}: The button created
+*/
+function createButton(btnText, bgColor) {
+    const btn = document.createElement('button');
+    btn.textContent = btnText;
+    btn.style.backgroundColor = bgColor;
+    return btn;
+}
+
+/*
+* Set the textContent property of all div.firstChild nodes to '0'
+* @returns: none
+*/
+function resetNumberElements() {
+    const elements = document.querySelectorAll('.digits div');
+    elements.forEach(div => {
+        if (!isNaN(div.textContent)) {
+            div.textContent = '0';
+        }
+        div.style.color = "black";
+    });
+    numMs = 0;
+}
+
 // Update the time every 10 ms
 let intervalID;
 let numMs = 0;
@@ -77,18 +104,23 @@ const divTag = document.createElement('div');
 divTag.id = 'btn-container';
 bodyTag.appendChild(divTag);
 
-// A button that adds a random nav item, up to the max allowed
-const startBtnText = 'Start';
-
 // Create and style button elements
-const startBtn = document.createElement('button');
-startBtn.style.backgroundColor = 'lightgrey';
-startBtn.textContent = startBtnText;
+
+// Start button
+const startBtn = createButton('Start', 'lightgrey');
 startBtn.addEventListener('click', function() {
     startInterval(updateSeconds, 10);
     startBtn.disabled = true;
-})
+});
+
+// Reset button
+const resetBtn = createButton('Reset', 'lightgrey')
+resetBtn.addEventListener('click', function() {
+    stopInterval(intervalID);
+    resetNumberElements();
+});
 
 // Place buttons in the div
 const div = document.querySelector('#btn-container');
 div.append(startBtn);
+div.append(resetBtn);
