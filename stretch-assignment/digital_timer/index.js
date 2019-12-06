@@ -21,11 +21,11 @@ function updateSeconds() {
 
     // Stop if it exceeds the max number of allowable seconds
     if (numMs >= maxMs) {
-        numberEls.forEach(numElement => numElement.style.color = 'red');
+        numberEls.forEach(numElement => numElement.style.color = '#DC3D24');
             // Reset the bg and border of the parent div
-        const redBgColor = '#f0afaf';
-        const redBorder = '3px solid darkred';
-        resetDivColor(numberEls[0].parentNode, redBgColor, redBorder);
+        const bgColor = '#232B2B';
+        const border = '3px solid #E3AE57';
+        resetDivColor(numberEls[0].parentNode, bgColor, border);
         stopInterval(intervalID);
         return 0;
     } else {
@@ -53,7 +53,10 @@ function updateSeconds() {
 * @returns: none
 */
 function startInterval(callback, intervalInMs) {
-    intervalID = window.setInterval(callback, 10)// update every ten ms
+    // Only allow one process to run
+    if (!intervalID) {
+        intervalID = window.setInterval(callback, 10)// update every ten ms
+    }
 }
 
 /*
@@ -64,6 +67,7 @@ function startInterval(callback, intervalInMs) {
 function stopInterval(interval) {
     clearInterval(interval);
     startBtn.disabled = false;
+    intervalID = undefined; // kill the interval id after it stops running
 }
 
 /*
