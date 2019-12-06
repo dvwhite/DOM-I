@@ -22,6 +22,10 @@ function updateSeconds() {
     // Stop if it exceeds the max number of allowable seconds
     if (numMs >= maxMs) {
         numberEls.forEach(numElement => numElement.style.color = 'red');
+            // Reset the bg and border of the parent div
+        const redBgColor = '#f0afaf';
+        const redBorder = '3px solid darkred';
+        resetDivColor(numberEls[0].parentNode, redBgColor, redBorder);
         stopInterval(intervalID);
         return 0;
     } else {
@@ -87,6 +91,19 @@ function resetNumberElements() {
         div.style.color = "black";
     });
     numMs = 0;
+
+    // Reset the bg and border of the parent div
+    const defaultBgColor = 'whitesmoke';
+    const defaultBorder = '3px solid lightgrey';
+    resetDivColor(elements[0].parentNode, defaultBgColor, defaultBorder);
+}
+
+/*
+* Reset the digits div's background color and border
+*/
+function resetDivColor(divEl, bgColor, border) {
+    divEl.style.backgroundColor = bgColor;
+    divEl.style.border = border;
 }
 
 // Update the time every 10 ms
@@ -124,3 +141,13 @@ resetBtn.addEventListener('click', function() {
 const div = document.querySelector('#btn-container');
 div.append(startBtn);
 div.append(resetBtn);
+
+// Style the digits div
+const digitsDiv = document.querySelector('.digits');
+const defaultBgColor = 'whitesmoke';
+const defaultBorder = '3px solid lightgrey';
+resetDivColor(digitsDiv, defaultBgColor, defaultBorder);
+digitsDiv.style.marginBottom = '0.5rem';
+// digitsDiv.style.boxShadow = '5px 5px 8px #888888';
+digitsDiv.style.boxShadow = '0 10.5px 21px rgba(0,0,0,0.25), 0 5.5px 5.5px rgba(0,0,0,0.22)';
+digitsDiv.style.borderRadius = '1rem';
